@@ -15,8 +15,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#050805;color:#fff;font-family:'Nunito',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;overflow:hidden}
-#app{min-height:100vh;min-height:100dvh;max-width:480px;margin:0 auto;padding:16px 16px 48px;overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(ellipse at 20% 20%,#0a1f0a 0%,#080c08 50%,#050805 100%);position:relative}
+html,body{height:100%;background:#050805;color:#fff;font-family:'Nunito',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;overflow-x:hidden}
+#app{min-height:100vh;min-height:100dvh;max-width:480px;margin:0 auto;padding:16px 16px calc(48px + env(safe-area-inset-bottom,20px));overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(ellipse at 20% 20%,#0a1f0a 0%,#080c08 50%,#050805 100%);position:relative;padding-bottom:calc(80px + env(safe-area-inset-bottom,20px))}
 .b{font-family:'Bangers',system-ui,cursive}
 @keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pu{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
@@ -77,7 +77,7 @@ var W=[
 {w:"sasso",x:"saso",h:"Pietra che trovi per terra 🪨",d:"ss",t:"d"},
 {w:"gonna",x:"gona",h:"Vestito corto per le gambe 👗",d:"nn",t:"d"},
 {w:"bello",x:"belo",h:"Quando qualcosa è molto carino ✨",d:"ll",t:"d"},
-{w:"cappello",x:"capello",h:"Si mette in testa come Luffy! 🎩",d:"pp",t:"d"},
+{w:"cappello",x:"capello",h:"Si mette in testa per il sole 🎩",d:"pp",t:"d"},
 {w:"grillo",x:"grilo",h:"Insetto che canta di notte 🦗",d:"ll",t:"d"},
 {w:"farfalla",x:"farfala",h:"Insetto con le ali colorate 🦋",d:"ll",t:"d"},
 {w:"pallone",x:"palone",h:"Grande palla per giocare ⚽",d:"ll",t:"d"},
@@ -141,7 +141,7 @@ var W=[
 {w:"futuro",x:"futturo",h:"Il tempo che deve ancora venire ⏳",d:null,t:"s"},
 {w:"natura",x:"nattura",h:"Alberi, fiori, animali... 🌿",d:null,t:"s"},
 {w:"patata",x:"pattata",h:"Ortaggio che cresce sotto terra 🥔",d:null,t:"s"},
-{w:"pirata",x:"pirratta",h:"Come Luffy e la sua ciurma! 🏴‍☠️",d:null,t:"s"},
+{w:"pirata",x:"pirratta",h:"Naviga i mari con la ciurma! 🏴‍☠️",d:null,t:"s"},
 {w:"corona",x:"corrona",h:"La mette il re sulla testa 👑",d:null,t:"s"},
 {w:"balena",x:"ballena",h:"Animale enorme del mare 🐋",d:null,t:"s"},
 {w:"carota",x:"carrota",h:"Ortaggio arancione del coniglio 🥕",d:null,t:"s"},
@@ -158,22 +158,27 @@ var W=[
 {w:"veleno",x:"velleno",h:"Sostanza pericolosa ☠️",d:null,t:"s"}
 ];
 
-var QOK=["Ottimo taglio, Lucio! ⚔️","Tre spade di potenza! 🗡️","Nemmeno Mihawk farebbe meglio!","Santoryu... PERFETTO!","Sei forte come un vero spadaccino!","Zoro è fiero di te! 💪","Un colpo preciso!","La strada dello spadaccino è giusta!","Niente mi ferma... e neanche te!","Grande, nakama! 🏴‍☠️"];
-var QNO=["Riprova, giovane spadaccino!","Anche Zoro sbaglia strada... riprova!","Le spade si affilano con la pratica!","Non arrenderti, nakama!","Ogni errore ti rende più forte!","Zoro crede in te, riprova!"];
+var QOK=["Ottimo taglio, Lucio! ⚔️","Tre spade di potenza! 🗡️","Colpo da maestro spadaccino!","Taglio triplo... PERFETTO!","Sei forte come un vero spadaccino!","Lo Spadaccino è fiero di te! 💪","Un colpo preciso!","La via della spada è giusta!","Niente mi ferma... e neanche te!","Grande, mozzo! 🏴‍☠️"];
+var QNO=["Riprova, giovane spadaccino!","Anche chi porta tre spade sbaglia strada... riprova!","Le spade si affilano con la pratica!","Non arrenderti, mozzo!","Ogni errore ti rende più forte!","Lo Spadaccino crede in te, riprova!"];
 function pk(a){return a[Math.floor(Math.random()*a.length)]}
 function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 
 var totalScore=0;
 try{totalScore=parseInt(localStorage.getItem("dp3")||"0")}catch(e){}
 function saveT(){try{localStorage.setItem("dp3",String(totalScore))}catch(e){}}
+var _gtmr=null; /* global timer ref for cleanup */
 
 function E(t,o,c){var e=document.createElement(t);if(o){for(var k in o){if(k==="s"&&typeof o[k]==="object")Object.assign(e.style,o[k]);else if(k.substr(0,2)==="on")e.addEventListener(k.substr(2),o[k]);else if(k==="c")e.className=o[k];else if(k==="id")e.id=o[k];else e.setAttribute(k,o[k])}}if(c!=null){if(!Array.isArray(c))c=[c];c.forEach(function(x){if(x!=null)e.appendChild(typeof x==="string"?document.createTextNode(x):x)})}return e}
 function $(i){return document.getElementById(i)}
 
 function renderHdr(sm){
   var h=$("hdr");h.innerHTML="";
-  h.style.cssText="text-align:center;padding:12px 0 8px;margin-bottom:16px;"+(sm?"border-bottom:1px solid rgba(46,204,64,.1)":"");
-  h.appendChild(E("div",{c:"b",s:{fontSize:sm?"14px":"18px",color:"#2ecc40",letterSpacing:"3px",opacity:.7}},["RORONOA ZORO PRESENTA"]));
+  h.style.cssText="text-align:center;padding:12px 0 8px;margin-bottom:16px;position:relative;"+(sm?"border-bottom:1px solid rgba(46,204,64,.1)":"");
+  if(sm){
+    var back=E("button",{c:"b",s:{position:"absolute",left:"0",top:"12px",padding:"6px 12px",fontSize:"14px",color:"#2ecc40",background:"rgba(46,204,64,.1)",borderRadius:"10px",border:"1px solid rgba(46,204,64,.2)"},onclick:function(){menu()}},["🏠"]);
+    h.appendChild(back);
+  }
+  h.appendChild(E("div",{c:"b",s:{fontSize:sm?"14px":"18px",color:"#2ecc40",letterSpacing:"3px",opacity:.7}},["LO SPADACCINO PRESENTA"]));
   h.appendChild(E("div",{c:"b",s:{fontSize:sm?"24px":"36px",letterSpacing:"2px",lineHeight:"1.2",marginTop:"4px",background:"linear-gradient(135deg,#2ecc40,#a8e6a3,#FFD700)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}},["Le Doppie del Pirata"]));
   if(!sm)h.appendChild(E("div",{s:{fontSize:"15px",color:"#6ecf8a",marginTop:"8px"}},["Ciao ",E("strong",null,["Lucio"]),"! Allenati con le doppie! 🏴‍☠️"]));
   if(totalScore>0)h.appendChild(E("div",{c:"b",s:{fontSize:"13px",color:"#FFD700",marginTop:"4px",letterSpacing:"1px"}},["💰 Punteggio totale: "+totalScore]));
@@ -254,19 +259,20 @@ function showRes(name,sc,bs,tot,errors,retryAllFn,makeRetryErrFn){
 
 /*═══ MENU ═══*/
 function menu(){
+  if(_gtmr){clearInterval(_gtmr);_gtmr=null}
   renderHdr(false);
   var c=$("ct");c.innerHTML="";
   var w=E("div",{s:{animation:"fu .5s ease-out"}});
   var ban=E("div",{s:{textAlign:"center",margin:"12px 0 24px",padding:"20px",borderRadius:"20px",background:"linear-gradient(135deg,rgba(46,204,64,.12),rgba(46,204,64,.03))",border:"2px solid rgba(46,204,64,.15)"}});
   ban.appendChild(E("div",{s:{fontSize:"60px",animation:"fl 3s ease-in-out infinite"}},["🗡️⚔️🗡️"]));
   ban.appendChild(E("div",{s:{fontSize:"15px",color:"#8ecfaa",marginTop:"8px",fontStyle:"italic"}},['"Niente succede se non ti alleni tutti i giorni!"']));
-  ban.appendChild(E("div",{s:{fontSize:"12px",color:"#5a8a6a",marginTop:"4px"}},["- Roronoa Zoro"]));
+  ban.appendChild(E("div",{s:{fontSize:"12px",color:"#5a8a6a",marginTop:"4px"}},["- Lo Spadaccino"]));
   w.appendChild(ban);
   w.appendChild(E("div",{c:"b",s:{fontSize:"16px",color:"#2ecc40",letterSpacing:"2px",marginBottom:"12px",textAlign:"center"}},["SCEGLI IL TUO ALLENAMENTO"]));
   var gs=[
-    {t:"La Scelta di Zoro",ds:"Scegli la forma giusta tra due opzioni!",i:"⚔️",co:"#2ecc40",fn:g1},
+    {t:"La Scelta dello Spadaccino",ds:"Scegli la forma giusta tra due opzioni!",i:"⚔️",co:"#2ecc40",fn:g1},
     {t:"Le Tre Spade",ds:"Singola o doppia? Attento alle trappole!",i:"🗡️",co:"#3498db",fn:g2},
-    {t:"Santoryu Rush",ds:"Velocità! Giusta o sbagliata? 45 secondi!",i:"⚡",co:"#f39c12",fn:g3}
+    {t:"Tre Lame Veloci",ds:"Velocità! Giusta o sbagliata? 45 secondi!",i:"⚡",co:"#f39c12",fn:g3}
   ];
   var list=E("div",{c:"col"});
   gs.forEach(function(g,i){
@@ -283,7 +289,7 @@ function menu(){
   w.appendChild(tip);c.appendChild(w);
 }
 
-/*═══ GAME 1: La Scelta di Zoro ═══*/
+/*═══ GAME 1: La Scelta dello Spadaccino ═══*/
 function g1(custom){
   renderHdr(true);
   var qs=sh(custom||W).slice(0,custom?custom.length:10),cur=0,sc=0,st=0,bs=0,errs=[];
@@ -291,7 +297,7 @@ function g1(custom){
   function render(){
     var c=$("ct");c.innerHTML="";
     if(cur>=TOT){
-      showRes("La Scelta di Zoro",sc,bs,TOT,errs,function(){g1()},function(e){return function(){
+      showRes("La Scelta dello Spadaccino",sc,bs,TOT,errs,function(){g1()},function(e){return function(){
         var rw=e.map(function(er){return W.find(function(w){return w.w===er.correct})}).filter(Boolean);
         if(rw.length)g1(rw);
       }});
@@ -388,7 +394,7 @@ function g2(custom){
   render();
 }
 
-/*═══ GAME 3: Santoryu Rush ═══*/
+/*═══ GAME 3: Tre Lame Veloci ═══*/
 function g3(custom){
   renderHdr(true);
   var pool=sh(custom||W).slice(0,custom?custom.length:25);
@@ -399,7 +405,7 @@ function g3(custom){
   function end(){
     if(over)return;over=true;clearInterval(tmr);
     setTimeout(function(){
-      showRes("Santoryu Rush",sc,bs,ans,errs,function(){g3()},function(e){return function(){
+      showRes("Tre Lame Veloci",sc,bs,ans,errs,function(){g3()},function(e){return function(){
         var rw=e.map(function(er){return W.find(function(w){return w.w===er.correct})}).filter(Boolean);
         if(rw.length)g3(rw);
       }});
@@ -487,6 +493,7 @@ function g3(custom){
     var t=$("tmr");if(t){t.textContent="⏰ "+tl+"s";t.style.color=tc;t.style.background=tc+"22"}
     var f=$("tfl");if(f){f.style.width=(tl/45*100)+"%";f.style.background=tc}
   },1000);
+  _gtmr=tmr;
   render();
 }
 

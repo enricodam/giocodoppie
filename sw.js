@@ -1,4 +1,4 @@
-var CACHE_NAME = 'doppie-v1';
+var CACHE_NAME = 'doppie-v2';
 var ASSETS = [
   './',
   './index.html',
