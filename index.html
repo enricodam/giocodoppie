@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Doppie Pirata">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#080c08">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Le Doppie del Pirata</title>
+<link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#050805;color:#fff;font-family:'Nunito',system-ui,sans-serif;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;overflow:hidden}
+#app{min-height:100vh;min-height:100dvh;max-width:480px;margin:0 auto;padding:16px 16px 48px;overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(ellipse at 20% 20%,#0a1f0a 0%,#080c08 50%,#050805 100%);position:relative}
+.b{font-family:'Bangers',system-ui,cursive}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pu{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes pi{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-12px)}40%{transform:translateX(12px)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
+@keyframes bigX{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1.15)}100%{opacity:0;transform:scale(1.6)}}
+button{font-family:inherit;-webkit-appearance:none;appearance:none;touch-action:manipulation;cursor:pointer;border:none;background:none;color:inherit}
+button:active:not(:disabled){transform:scale(.97)!important;filter:brightness(1.1)}
+.badge{border-radius:12px;padding:6px 16px;font-family:'Bangers',cursive;font-size:18px;display:inline-block}
+.card{background:linear-gradient(135deg,rgba(46,204,64,.08),rgba(0,0,0,0));border-radius:20px;padding:28px;border:2px solid rgba(46,204,64,.2);text-align:center}
+.ob{flex:1 1 140px;max-width:220px;padding:20px 16px;font-size:28px;font-family:'Bangers',cursive;letter-spacing:3px;border-radius:16px;transition:all .15s}
+.od{background:linear-gradient(135deg,#1a2a1a,#1a3a2a);color:#2ecc40;border:3px solid rgba(46,204,64,.3)}
+.oc{background:linear-gradient(135deg,#1a5c2a,#2ecc40)!important;color:#fff!important;border:3px solid #2ecc40!important;transform:scale(1.05);box-shadow:0 0 30px rgba(46,204,64,.4)}
+.ow{background:linear-gradient(135deg,#5c1a1a,rgba(231,76,60,.2))!important;color:#c0392b!important;border:3px solid rgba(231,76,60,.3)!important}
+.bn{margin-top:14px;padding:10px 32px;background:linear-gradient(135deg,#2ecc40,#27ae60);color:#fff;border:none;border-radius:12px;font-size:16px;font-family:'Bangers',cursive;letter-spacing:1px}
+.fb{margin-top:20px;padding:20px;border-radius:16px;animation:fu .3s ease-out;text-align:center}
+.fok{background:linear-gradient(135deg,rgba(46,204,64,.15),rgba(46,204,64,.05));border:2px solid rgba(46,204,64,.3)}
+.fno{background:linear-gradient(135deg,rgba(231,76,60,.15),rgba(231,76,60,.05));border:2px solid rgba(231,76,60,.3)}
+.mb{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;text-align:left;width:100%;transition:all .15s;border:2px solid}
+.mb:active{transform:scale(.98)!important}
+.row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.dc{position:fixed;opacity:.04;pointer-events:none;font-size:100px;animation:fl 4s ease-in-out infinite}
+.tb{width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.tf{height:100%;border-radius:3px;transition:width 1s linear,background .3s}
+.er{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:12px;margin-bottom:8px;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.15)}
+.ew{text-decoration:line-through;color:#e74c3c;font-family:'Bangers',cursive;font-size:20px;letter-spacing:2px;opacity:.6}
+.ek{color:#2ecc40;font-family:'Bangers',cursive;font-size:22px;letter-spacing:2px}
+.bx{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:999}
+.bx-i{font-size:140px;animation:bigX .9s ease-out forwards}
+.re{background:rgba(231,76,60,.2);border:2px solid rgba(231,76,60,.5);border-radius:16px;padding:16px;margin-top:12px;text-align:center;animation:shake .4s ease-out}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="dc" style="top:20px;right:-10px">🗡️</div>
+  <div class="dc" style="bottom:40px;left:-20px;animation-delay:1s;transform:rotate(45deg)">⚔️</div>
+  <div id="hdr"></div>
+  <div id="ct"></div>
+</div>
+<script>
+(function(){
+"use strict";
+if("serviceWorker"in navigator){navigator.serviceWorker.register("./sw.js").catch(function(){});}
+
+/*═══ DATABASE ═══*/
+var W=[
+/*── CON DOPPIE ──*/
+{w:"gatto",x:"gato",h:"Animale che fa miao 🐱",d:"tt",t:"d"},
+{w:"latte",x:"late",h:"Bevanda bianca dalla mucca 🥛",d:"tt",t:"d"},
+{w:"palla",x:"pala",h:"Oggetto rotondo per giocare ⚽",d:"ll",t:"d"},
+{w:"mamma",x:"mama",h:"La persona che ti vuole più bene 💕",d:"mm",t:"d"},
+{w:"nonno",x:"nono",h:"Il papà del papà 👴",d:"nn",t:"d"},
+{w:"bocca",x:"boca",h:"Si apre per parlare e mangiare 👄",d:"cc",t:"d"},
+{w:"tetto",x:"teto",h:"La parte sopra la casa 🏠",d:"tt",t:"d"},
+{w:"sasso",x:"saso",h:"Pietra che trovi per terra 🪨",d:"ss",t:"d"},
+{w:"gonna",x:"gona",h:"Vestito corto per le gambe 👗",d:"nn",t:"d"},
+{w:"bello",x:"belo",h:"Quando qualcosa è molto carino ✨",d:"ll",t:"d"},
+{w:"cappello",x:"capello",h:"Si mette in testa come Luffy! 🎩",d:"pp",t:"d"},
+{w:"grillo",x:"grilo",h:"Insetto che canta di notte 🦗",d:"ll",t:"d"},
+{w:"farfalla",x:"farfala",h:"Insetto con le ali colorate 🦋",d:"ll",t:"d"},
+{w:"pallone",x:"palone",h:"Grande palla per giocare ⚽",d:"ll",t:"d"},
+{w:"bottiglia",x:"botiglia",h:"Ci metti l'acqua dentro 🍼",d:"tt",t:"d"},
+{w:"carrello",x:"carello",h:"Lo spingi al supermercato 🛒",d:"rr",t:"d"},
+{w:"cammello",x:"camello",h:"Animale del deserto con la gobba 🐪",d:"mm",t:"d"},
+{w:"pennello",x:"penello",h:"Si usa per dipingere 🖌️",d:"nn",t:"d"},
+{w:"zucchero",x:"zuchero",h:"Rende dolci le cose 🍬",d:"cc",t:"d"},
+{w:"cavallo",x:"cavalo",h:"Animale che fa iiiih 🐴",d:"ll",t:"d"},
+{w:"broccoli",x:"brocoli",h:"Verdura verde ad alberello 🥦",d:"cc",t:"d"},
+{w:"formaggio",x:"formagio",h:"Si mangia sulla pizza 🧀",d:"gg",t:"d"},
+{w:"pioggia",x:"piogia",h:"Acqua che cade dal cielo 🌧️",d:"gg",t:"d"},
+{w:"cioccolato",x:"ciocolato",h:"Dolce marrone buonissimo 🍫",d:"cc",t:"d"},
+{w:"stellina",x:"stelina",h:"Brilla nel cielo di notte ⭐",d:"ll",t:"d"},
+{w:"uccello",x:"ucello",h:"Animale che vola nel cielo 🐦",d:"cc",t:"d"},
+{w:"ferro",x:"fero",h:"Metallo forte come le spade ⚔️",d:"rr",t:"d"},
+{w:"burro",x:"buro",h:"Si spalma sul pane 🧈",d:"rr",t:"d"},
+{w:"mucca",x:"muca",h:"Animale che fa muuu 🐄",d:"cc",t:"d"},
+{w:"rosso",x:"roso",h:"Colore del fuoco 🔴",d:"ss",t:"d"},
+{w:"giallo",x:"gialo",h:"Colore del sole ☀️",d:"ll",t:"d"},
+{w:"freddo",x:"fredo",h:"Quando fa molto brrrr! 🥶",d:"dd",t:"d"},
+{w:"colla",x:"cola",h:"Serve per attaccare la carta 🧴",d:"ll",t:"d"},
+{w:"penna",x:"pena",h:"Si usa per scrivere ✍️",d:"nn",t:"d"},
+{w:"notte",x:"note",h:"Quando è buio e dormiamo 🌙",d:"tt",t:"d"},
+{w:"collana",x:"colana",h:"Gioiello che si mette al collo 📿",d:"ll",t:"d"},
+{w:"fiamma",x:"fiama",h:"Fuoco che brucia 🔥",d:"mm",t:"d"},
+{w:"labbro",x:"labro",h:"Parte della bocca 👄",d:"bb",t:"d"},
+{w:"babbo",x:"babo",h:"Un altro modo per dire papà 👨",d:"bb",t:"d"},
+{w:"gabbia",x:"gabia",h:"Dove stanno gli uccellini 🦜",d:"bb",t:"d"},
+{w:"nebbia",x:"nebia",h:"Quando non si vede niente fuori 🌫️",d:"bb",t:"d"},
+{w:"viaggio",x:"viagio",h:"Quando vai in vacanza lontano ✈️",d:"gg",t:"d"},
+{w:"spiaggia",x:"spiagia",h:"Dove giochi con la sabbia 🏖️",d:"gg",t:"d"},
+{w:"riccio",x:"ricio",h:"Animale con gli aculei 🦔",d:"cc",t:"d"},
+{w:"gnocco",x:"gnoco",h:"Si mangia con il sugo 🍝",d:"cc",t:"d"},
+{w:"secchio",x:"sechio",h:"Per portare l'acqua 🪣",d:"cc",t:"d"},
+{w:"orecchio",x:"orechio",h:"Serve per sentire 👂",d:"cc",t:"d"},
+{w:"occhiali",x:"ochiali",h:"Si mettono per vedere meglio 👓",d:"cc",t:"d"},
+{w:"cappuccino",x:"capuccino",h:"Bevanda con latte e schiuma ☕",d:"pp",t:"d"},
+{w:"tazza",x:"taza",h:"Ci bevi il latte la mattina ☕",d:"zz",t:"d"},
+{w:"pizza",x:"piza",h:"Cibo italiano famoso nel mondo 🍕",d:"zz",t:"d"},
+{w:"piazza",x:"piaza",h:"Grande spazio in centro al paese 🏛️",d:"zz",t:"d"},
+{w:"pozzo",x:"pozo",h:"Buco profondo per l'acqua 💧",d:"zz",t:"d"},
+{w:"pazzo",x:"pazo",h:"Chi fa cose strane e buffe 🤪",d:"zz",t:"d"},
+{w:"pezzo",x:"pezo",h:"Una parte di qualcosa 🧩",d:"zz",t:"d"},
+{w:"ragazzo",x:"ragazo",h:"Un bambino un po' più grande 👦",d:"zz",t:"d"},
+{w:"terreno",x:"tereno",h:"La terra dove camminiamo 🌍",d:"rr",t:"d"},
+{w:"torre",x:"tore",h:"Costruzione alta e stretta 🗼",d:"rr",t:"d"},
+{w:"pappagallo",x:"papagallo",h:"Uccello colorato che parla 🦜",d:"pp",t:"d"},
+{w:"ippopotamo",x:"ipopotamo",h:"Animale grande che sta nell'acqua 🦛",d:"pp",t:"d"},
+/*── SENZA DOPPIE (la forma sbagliata AGGIUNGE doppie false) ──*/
+{w:"nuvola",x:"nuvvola",h:"Bianca nel cielo ☁️",d:null,t:"s"},
+{w:"sapone",x:"sappone",h:"Per lavare le mani 🧼",d:null,t:"s"},
+{w:"colore",x:"collore",h:"Rosso, blu, verde... 🎨",d:null,t:"s"},
+{w:"limone",x:"limmone",h:"Frutto giallo e aspro 🍋",d:null,t:"s"},
+{w:"banana",x:"bannana",h:"Frutto giallo delle scimmie 🍌",d:null,t:"s"},
+{w:"camino",x:"cammino",h:"Dove brucia il fuoco in casa 🏡",d:null,t:"s"},
+{w:"sapore",x:"sappore",h:"Dolce, salato, amaro... 👅",d:null,t:"s"},
+{w:"tavolo",x:"tavvolo",h:"Mobile dove si mangia 🪑",d:null,t:"s"},
+{w:"salame",x:"sallame",h:"Affettato rosa per il panino 🥪",d:null,t:"s"},
+{w:"tesoro",x:"tessoro",h:"Quello che cercano i pirati! 💎",d:null,t:"s"},
+{w:"futuro",x:"futturo",h:"Il tempo che deve ancora venire ⏳",d:null,t:"s"},
+{w:"natura",x:"nattura",h:"Alberi, fiori, animali... 🌿",d:null,t:"s"},
+{w:"patata",x:"pattata",h:"Ortaggio che cresce sotto terra 🥔",d:null,t:"s"},
+{w:"pirata",x:"pirratta",h:"Come Luffy e la sua ciurma! 🏴‍☠️",d:null,t:"s"},
+{w:"corona",x:"corrona",h:"La mette il re sulla testa 👑",d:null,t:"s"},
+{w:"balena",x:"ballena",h:"Animale enorme del mare 🐋",d:null,t:"s"},
+{w:"carota",x:"carrota",h:"Ortaggio arancione del coniglio 🥕",d:null,t:"s"},
+{w:"gelato",x:"gellato",h:"Dolce freddo dell'estate 🍦",d:null,t:"s"},
+{w:"regalo",x:"regallo",h:"Si scarta a Natale e ai compleanni 🎁",d:null,t:"s"},
+{w:"matita",x:"mattitta",h:"Si usa per disegnare ✏️",d:null,t:"s"},
+{w:"ferita",x:"ferritta",h:"Quando ti fai male 🩹",d:null,t:"s"},
+{w:"minuto",x:"minnuto",h:"60 secondi ⏱️",d:null,t:"s"},
+{w:"polpo",x:"polppo",h:"Animale con otto braccia 🐙",d:null,t:"s"},
+{w:"panino",x:"pannino",h:"Pane con dentro qualcosa 🥖",d:null,t:"s"},
+{w:"lumaca",x:"lummaca",h:"Animale lento con la casetta 🐌",d:null,t:"s"},
+{w:"tulipano",x:"tullipano",h:"Fiore colorato 🌷",d:null,t:"s"},
+{w:"divano",x:"divvanno",h:"Dove ti siedi per guardare la TV 🛋️",d:null,t:"s"},
+{w:"veleno",x:"velleno",h:"Sostanza pericolosa ☠️",d:null,t:"s"}
+];
+
+var QOK=["Ottimo taglio, Lucio! ⚔️","Tre spade di potenza! 🗡️","Nemmeno Mihawk farebbe meglio!","Santoryu... PERFETTO!","Sei forte come un vero spadaccino!","Zoro è fiero di te! 💪","Un colpo preciso!","La strada dello spadaccino è giusta!","Niente mi ferma... e neanche te!","Grande, nakama! 🏴‍☠️"];
+var QNO=["Riprova, giovane spadaccino!","Anche Zoro sbaglia strada... riprova!","Le spade si affilano con la pratica!","Non arrenderti, nakama!","Ogni errore ti rende più forte!","Zoro crede in te, riprova!"];
+function pk(a){return a[Math.floor(Math.random()*a.length)]}
+function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+var totalScore=0;
+try{totalScore=parseInt(localStorage.getItem("dp3")||"0")}catch(e){}
+function saveT(){try{localStorage.setItem("dp3",String(totalScore))}catch(e){}}
+
+function E(t,o,c){var e=document.createElement(t);if(o){for(var k in o){if(k==="s"&&typeof o[k]==="object")Object.assign(e.style,o[k]);else if(k.substr(0,2)==="on")e.addEventListener(k.substr(2),o[k]);else if(k==="c")e.className=o[k];else if(k==="id")e.id=o[k];else e.setAttribute(k,o[k])}}if(c!=null){if(!Array.isArray(c))c=[c];c.forEach(function(x){if(x!=null)e.appendChild(typeof x==="string"?document.createTextNode(x):x)})}return e}
+function $(i){return document.getElementById(i)}
+
+function renderHdr(sm){
+  var h=$("hdr");h.innerHTML="";
+  h.style.cssText="text-align:center;padding:12px 0 8px;margin-bottom:16px;"+(sm?"border-bottom:1px solid rgba(46,204,64,.1)":"");
+  h.appendChild(E("div",{c:"b",s:{fontSize:sm?"14px":"18px",color:"#2ecc40",letterSpacing:"3px",opacity:.7}},["RORONOA ZORO PRESENTA"]));
+  h.appendChild(E("div",{c:"b",s:{fontSize:sm?"24px":"36px",letterSpacing:"2px",lineHeight:"1.2",marginTop:"4px",background:"linear-gradient(135deg,#2ecc40,#a8e6a3,#FFD700)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}},["Le Doppie del Pirata"]));
+  if(!sm)h.appendChild(E("div",{s:{fontSize:"15px",color:"#6ecf8a",marginTop:"8px"}},["Ciao ",E("strong",null,["Lucio"]),"! Allenati con le doppie! 🏴‍☠️"]));
+  if(totalScore>0)h.appendChild(E("div",{c:"b",s:{fontSize:"13px",color:"#FFD700",marginTop:"4px",letterSpacing:"1px"}},["💰 Punteggio totale: "+totalScore]));
+}
+function sbar(l,sc,st){
+  var b=E("div",{s:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"16px",flexWrap:"wrap",gap:"8px"}});
+  b.appendChild(E("div",{c:"badge",s:{background:"rgba(46,204,64,.15)",color:"#2ecc40"}},["⚔️ "+l]));
+  b.appendChild(E("div",{c:"badge",id:"sd",s:{background:"rgba(255,215,0,.15)",color:"#FFD700"}},["💰 "+sc]));
+  if(st>=2)b.appendChild(E("div",{c:"badge",s:{background:"rgba(255,100,50,.2)",color:"#ff6432",fontSize:"16px",animation:"pu .8s infinite"}},["🔥 x"+st+"!"]));
+  return b;
+}
+function fbx(ok,msg,extra,btnTxt,fn){
+  var b=E("div",{c:"fb "+(ok?"fok":"fno")});
+  b.appendChild(E("div",{s:{fontSize:"36px",marginBottom:"8px"}},[ok?"✅":"❌"]));
+  b.appendChild(E("div",{c:"b",s:{fontSize:"18px",color:ok?"#2ecc40":"#e74c3c",marginBottom:"4px"}},[msg]));
+  if(extra)b.appendChild(E("div",{s:{color:ok?"#FFD700":"#aaa",fontSize:ok?"14px":"15px",marginTop:ok?"0":"8px"}},[extra]));
+  b.appendChild(E("button",{c:"bn",onclick:fn},[btnTxt]));
+  return b;
+}
+
+/*═══ ERROR REVIEW ═══*/
+function errBox(errors,retryErrFn,retryAllFn){
+  var w=E("div",{s:{animation:"fu .5s ease-out",marginTop:"20px"}});
+  w.appendChild(E("div",{c:"b",s:{fontSize:"22px",color:"#e74c3c",textAlign:"center",marginBottom:"16px"}},["📋 Riepilogo Errori ("+errors.length+")"]));
+  errors.forEach(function(err){
+    var row=E("div",{c:"er"});
+    var left=E("div");
+    left.appendChild(E("div",{c:"ew"},[err.given.toUpperCase()]));
+    left.appendChild(E("div",{s:{fontSize:"11px",color:"#888",marginTop:"2px"}},[err.hint]));
+    row.appendChild(left);
+    row.appendChild(E("div",{s:{display:"flex",alignItems:"center",gap:"8px"}},
+      [E("span",{s:{color:"#888",fontSize:"18px"}},["➜"]),E("span",{c:"ek"},[err.correct.toUpperCase()])]));
+    w.appendChild(row);
+  });
+  var btns=E("div",{s:{display:"flex",flexDirection:"column",gap:"10px",marginTop:"20px",alignItems:"center"}});
+  btns.appendChild(E("button",{c:"b",s:{padding:"12px 28px",fontSize:"18px",background:"linear-gradient(135deg,#e74c3c,#c0392b)",color:"#fff",borderRadius:"14px",width:"100%",maxWidth:"300px"},onclick:retryErrFn},["🔄 Ripeti Solo Errori"]));
+  btns.appendChild(E("button",{c:"b",s:{padding:"12px 28px",fontSize:"18px",background:"linear-gradient(135deg,#2ecc40,#27ae60)",color:"#fff",borderRadius:"14px",width:"100%",maxWidth:"300px"},onclick:retryAllFn},["🔄 Rigioca Tutto"]));
+  btns.appendChild(E("button",{c:"b",s:{padding:"12px 28px",fontSize:"18px",background:"linear-gradient(135deg,#333,#555)",color:"#fff",borderRadius:"14px",width:"100%",maxWidth:"300px"},onclick:menu},["🏠 Menu"]));
+  w.appendChild(btns);
+  return w;
+}
+
+/*═══ RESULTS SCREEN ═══*/
+function showRes(name,sc,bs,tot,errors,retryAllFn,makeRetryErrFn){
+  renderHdr(true);var c=$("ct");c.innerHTML="";
+  var pct=tot>0?Math.round(sc/(tot*10)*100):0;
+  var st=pct>=90?3:pct>=60?2:pct>=30?1:0;
+  var ti=pct>=90?"Maestro Spadaccino!":pct>=60?"Bravo Pirata!":pct>=30?"Buon inizio!":"Continua ad allenarti!";
+  var em=pct>=90?"🏆":pct>=60?"⚔️":pct>=30?"🗡️":"💪";
+  totalScore+=sc;saveT();
+
+  var w=E("div",{s:{textAlign:"center",padding:"20px 0",animation:"fu .5s ease-out"}});
+  w.appendChild(E("div",{s:{fontSize:"64px",marginBottom:"12px"}},[em]));
+  w.appendChild(E("div",{c:"b",s:{fontSize:"32px",color:"#FFD700",marginBottom:"8px",textShadow:"0 0 20px rgba(255,215,0,.3)"}},[ti]));
+  var stars=E("div",{s:{display:"flex",gap:"4px",justifyContent:"center"}});
+  for(var i=0;i<3;i++)stars.appendChild(E("span",{s:{fontSize:"28px",filter:i<st?"none":"grayscale(1) opacity(.3)",transform:i<st?"scale(1.1)":"scale(.9)"}},["⭐"]));
+  w.appendChild(stars);
+
+  var box=E("div",{s:{background:"rgba(46,204,64,.08)",borderRadius:"20px",padding:"24px",marginTop:"20px",border:"2px solid rgba(46,204,64,.15)",textAlign:"center"}});
+  box.appendChild(E("div",{s:{fontSize:"14px",color:"#888",marginBottom:"4px"}},[name]));
+  var gr=E("div",{s:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"16px",marginTop:"12px"}});
+  var s1=E("div");s1.appendChild(E("div",{c:"b",s:{fontSize:"36px",color:"#2ecc40"}},[String(sc)]));s1.appendChild(E("div",{s:{fontSize:"13px",color:"#888"}},["Punti"]));
+  var s2=E("div");s2.appendChild(E("div",{c:"b",s:{fontSize:"36px",color:"#FFD700"}},[String(bs)]));s2.appendChild(E("div",{s:{fontSize:"13px",color:"#888"}},["Miglior Combo"]));
+  gr.appendChild(s1);gr.appendChild(s2);box.appendChild(gr);
+  if(errors.length>0)box.appendChild(E("div",{s:{marginTop:"12px",fontSize:"15px",color:"#e74c3c"}},["❌ "+errors.length+" error"+(errors.length===1?"e":"i")]));
+  else box.appendChild(E("div",{s:{marginTop:"12px",fontSize:"15px",color:"#2ecc40"}},["✅ Zero errori! Perfetto!"]));
+  w.appendChild(box);c.appendChild(w);
+
+  if(errors.length>0){
+    c.appendChild(errBox(errors,makeRetryErrFn(errors),retryAllFn));
+  } else {
+    var btns=E("div",{c:"row",s:{marginTop:"24px",justifyContent:"center"}});
+    btns.appendChild(E("button",{c:"b",s:{padding:"12px 28px",fontSize:"18px",background:"linear-gradient(135deg,#2ecc40,#27ae60)",color:"#fff",borderRadius:"14px"},onclick:retryAllFn},["🔄 Rigioca"]));
+    btns.appendChild(E("button",{c:"b",s:{padding:"12px 28px",fontSize:"18px",background:"linear-gradient(135deg,#333,#555)",color:"#fff",borderRadius:"14px"},onclick:menu},["🏠 Menu"]));
+    c.appendChild(btns);
+  }
+}
+
+/*═══ MENU ═══*/
+function menu(){
+  renderHdr(false);
+  var c=$("ct");c.innerHTML="";
+  var w=E("div",{s:{animation:"fu .5s ease-out"}});
+  var ban=E("div",{s:{textAlign:"center",margin:"12px 0 24px",padding:"20px",borderRadius:"20px",background:"linear-gradient(135deg,rgba(46,204,64,.12),rgba(46,204,64,.03))",border:"2px solid rgba(46,204,64,.15)"}});
+  ban.appendChild(E("div",{s:{fontSize:"60px",animation:"fl 3s ease-in-out infinite"}},["🗡️⚔️🗡️"]));
+  ban.appendChild(E("div",{s:{fontSize:"15px",color:"#8ecfaa",marginTop:"8px",fontStyle:"italic"}},['"Niente succede se non ti alleni tutti i giorni!"']));
+  ban.appendChild(E("div",{s:{fontSize:"12px",color:"#5a8a6a",marginTop:"4px"}},["- Roronoa Zoro"]));
+  w.appendChild(ban);
+  w.appendChild(E("div",{c:"b",s:{fontSize:"16px",color:"#2ecc40",letterSpacing:"2px",marginBottom:"12px",textAlign:"center"}},["SCEGLI IL TUO ALLENAMENTO"]));
+  var gs=[
+    {t:"La Scelta di Zoro",ds:"Scegli la forma giusta tra due opzioni!",i:"⚔️",co:"#2ecc40",fn:g1},
+    {t:"Le Tre Spade",ds:"Singola o doppia? Attento alle trappole!",i:"🗡️",co:"#3498db",fn:g2},
+    {t:"Santoryu Rush",ds:"Velocità! Giusta o sbagliata? 45 secondi!",i:"⚡",co:"#f39c12",fn:g3}
+  ];
+  var list=E("div",{c:"col"});
+  gs.forEach(function(g,i){
+    var btn=E("button",{c:"mb",s:{background:"linear-gradient(135deg,"+g.co+"11,"+g.co+"05)",borderColor:g.co+"33",animation:"fu .5s ease-out "+(i*.1)+"s both"},onclick:function(){g.fn()}});
+    btn.appendChild(E("div",{s:{fontSize:"36px",width:"52px",height:"52px",display:"flex",alignItems:"center",justifyContent:"center",background:g.co+"15",borderRadius:"14px",flexShrink:"0"}},[g.i]));
+    var info=E("div");
+    info.appendChild(E("div",{c:"b",s:{fontSize:"20px",color:g.co,letterSpacing:"1px"}},[g.t]));
+    info.appendChild(E("div",{s:{fontSize:"13px",color:"#999"}},[g.ds]));
+    btn.appendChild(info);list.appendChild(btn);
+  });
+  w.appendChild(list);
+  var tip=E("div",{s:{marginTop:"24px",textAlign:"center",padding:"16px",background:"rgba(255,215,0,.05)",borderRadius:"14px",border:"1px solid rgba(255,215,0,.1)"}});
+  tip.innerHTML='<div style="font-size:13px;color:#888">🏴‍☠️ Ogni gioco ha <strong style="color:#FFD700">10 domande</strong> ('+W.length+' parole nel database!)</div><div style="font-size:13px;color:#888;margin-top:4px">Fai <strong style="color:#ff6432">combo</strong> per punti bonus! 🔥</div>';
+  w.appendChild(tip);c.appendChild(w);
+}
+
+/*═══ GAME 1: La Scelta di Zoro ═══*/
+function g1(custom){
+  renderHdr(true);
+  var qs=sh(custom||W).slice(0,custom?custom.length:10),cur=0,sc=0,st=0,bs=0,errs=[];
+  var TOT=qs.length;
+  function render(){
+    var c=$("ct");c.innerHTML="";
+    if(cur>=TOT){
+      showRes("La Scelta di Zoro",sc,bs,TOT,errs,function(){g1()},function(e){return function(){
+        var rw=e.map(function(er){return W.find(function(w){return w.w===er.correct})}).filter(Boolean);
+        if(rw.length)g1(rw);
+      }});
+      return;
+    }
+    var q=qs[cur],done=false;
+    var opts=Math.random()>.5?[q.w,q.x]:[q.x,q.w];
+    var w=E("div",{s:{animation:"fu .5s ease-out"}});
+    w.appendChild(sbar((cur+1)+"/"+TOT,sc,st));
+    var cd=E("div",{c:"card",s:{marginBottom:"20px"}});
+    cd.appendChild(E("div",{s:{fontSize:"16px",color:"#aaa",marginBottom:"8px"}},["Indizio:"]));
+    cd.appendChild(E("div",{s:{fontSize:"22px",fontWeight:"700",lineHeight:"1.4"}},[q.h]));
+    w.appendChild(cd);
+    w.appendChild(E("div",{s:{fontSize:"14px",textAlign:"center",color:"#8ecfaa",marginBottom:"16px",fontWeight:"600"}},["🗡️ Quale forma è corretta?"]));
+    var row=E("div",{c:"row"});
+    opts.forEach(function(o){
+      row.appendChild(E("button",{c:"ob od",onclick:function(){
+        if(done)return;done=true;
+        row.querySelectorAll("button").forEach(function(b){b.disabled=true;b.className=b.textContent===q.w.toUpperCase()?"ob oc":"ob ow"});
+        var ok=o===q.w,bo=0;
+        if(ok){bo=st>=2?5:0;sc+=10+bo;st++;if(st>bs)bs=st}else{st=0;errs.push({given:o,correct:q.w,hint:q.h})}
+        w.appendChild(fbx(ok,ok?pk(QOK):pk(QNO),ok?(bo>0?"+"+bo+" bonus combo! 🔥":null):"Quella giusta era: "+q.w.toUpperCase(),cur+1>=TOT?"Vedi Risultati ➜":"Avanti ➜",function(){cur++;render()}));
+        $("ct").scrollTop=$("ct").scrollHeight;
+      }},[o.toUpperCase()]));
+    });
+    w.appendChild(row);c.appendChild(w);
+  }
+  render();
+}
+
+/*═══ GAME 2: Le Tre Spade (BALANCED) ═══*/
+function g2(custom){
+  renderHdr(true);
+  var pool;
+  if(custom){pool=sh(custom)}
+  else{
+    var dw=sh(W.filter(function(w){return w.t==="d"})).slice(0,6);
+    var sw=sh(W.filter(function(w){return w.t==="s"})).slice(0,4);
+    pool=sh(dw.concat(sw));
+  }
+  var TOT=pool.length,cur=0,sc=0,st=0,bs=0,errs=[];
+
+  function mkQ(item){
+    if(item.t==="d"){
+      var idx=item.w.indexOf(item.d[0]);
+      return{w:item.w,h:item.h,bf:item.w.slice(0,idx),af:item.w.slice(idx+2),a:item.d[0],b:item.d,ok:item.d};
+    }
+    // type "s": find which letter was doubled in wrong version
+    var cw=item.w,wx=item.x,di=-1;
+    for(var i=0;i<wx.length;i++){if(i>=cw.length||wx[i]!==cw[i]){di=i;break}}
+    if(di<0)di=1;
+    var ch=cw[di];
+    return{w:item.w,h:item.h,bf:cw.slice(0,di),af:cw.slice(di+1),a:ch,b:ch+ch,ok:ch};
+  }
+
+  function render(){
+    var c=$("ct");c.innerHTML="";
+    if(cur>=TOT){
+      showRes("Le Tre Spade",sc,bs,TOT,errs,function(){g2()},function(e){return function(){
+        var rw=e.map(function(er){return W.find(function(w){return w.w===er.correct})}).filter(Boolean);
+        if(rw.length)g2(rw);
+      }});
+      return;
+    }
+    var q=mkQ(pool[cur]),done=false;
+    var w=E("div",{s:{animation:"fu .5s ease-out"}});
+    w.appendChild(sbar((cur+1)+"/"+TOT,sc,st));
+    var cd=E("div",{c:"card",s:{marginBottom:"20px"}});
+    cd.appendChild(E("div",{s:{fontSize:"15px",color:"#aaa",marginBottom:"8px"}},["Indizio:"]));
+    cd.appendChild(E("div",{s:{fontSize:"20px",fontWeight:"700",marginBottom:"20px"}},[q.h]));
+    var wr=E("div",{c:"b",s:{fontSize:"36px",letterSpacing:"4px",display:"flex",alignItems:"center",justifyContent:"center",gap:"4px"}});
+    wr.appendChild(E("span",null,[q.bf.toUpperCase()]));
+    var bl=E("span",{id:"bl",s:{display:"inline-block",minWidth:"50px",borderBottom:"4px solid #2ecc40",color:"#2ecc40",animation:"bl 1s infinite"}},["?"]);
+    wr.appendChild(bl);wr.appendChild(E("span",null,[q.af.toUpperCase()]));
+    cd.appendChild(wr);w.appendChild(cd);
+    w.appendChild(E("div",{s:{fontSize:"14px",textAlign:"center",color:"#8ecfaa",marginBottom:"16px",fontWeight:"600"}},["⚔️ Singola o doppia? Attento!"]));
+    var opts=Math.random()>.5?[q.a,q.b]:[q.b,q.a];
+    var row=E("div",{c:"row"});
+    opts.forEach(function(o){
+      row.appendChild(E("button",{c:"ob od",s:{fontSize:"32px",letterSpacing:"4px"},onclick:function(){
+        if(done)return;done=true;
+        bl.style.animation="none";bl.textContent=q.ok.toUpperCase();
+        var ok=o===q.ok;
+        bl.style.color=ok?"#2ecc40":"#e74c3c";
+        row.querySelectorAll("button").forEach(function(b){b.disabled=true;b.className=b.textContent===q.ok.toUpperCase()?"ob oc":"ob ow"});
+        var bo=0,gw=q.bf+o+q.af;
+        if(ok){bo=st>=2?5:0;sc+=10+bo;st++;if(st>bs)bs=st}else{st=0;errs.push({given:gw,correct:q.w,hint:q.h})}
+        w.appendChild(fbx(ok,ok?pk(QOK):pk(QNO),ok?(bo>0?"+"+bo+" bonus combo! 🔥":null):"Quella giusta era: "+q.w.toUpperCase(),cur+1>=TOT?"Vedi Risultati ➜":"Avanti ➜",function(){cur++;render()}));
+        $("ct").scrollTop=$("ct").scrollHeight;
+      }},[o.toUpperCase()]));
+    });
+    w.appendChild(row);c.appendChild(w);
+  }
+  render();
+}
+
+/*═══ GAME 3: Santoryu Rush ═══*/
+function g3(custom){
+  renderHdr(true);
+  var pool=sh(custom||W).slice(0,custom?custom.length:25);
+  var qs=pool.map(function(w){var ok=Math.random()>.5;return{disp:ok?w.w:w.x,ok:ok,correct:w.w,wrong:w.x,hint:w.h}});
+  var cur=0,sc=0,st=0,bs=0,tl=45,ans=0,over=false,tmr=null,errs=[];
+  var errTO=null,blocked=false;
+
+  function end(){
+    if(over)return;over=true;clearInterval(tmr);
+    setTimeout(function(){
+      showRes("Santoryu Rush",sc,bs,ans,errs,function(){g3()},function(e){return function(){
+        var rw=e.map(function(er){return W.find(function(w){return w.w===er.correct})}).filter(Boolean);
+        if(rw.length)g3(rw);
+      }});
+    },500);
+  }
+
+  function render(){
+    var c=$("ct");c.innerHTML="";
+    var w=E("div",{s:{animation:"fu .5s ease-out"}});
+    var bar=E("div",{s:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"12px",flexWrap:"wrap",gap:"8px"}});
+    var tc=tl>15?"#2ecc40":tl>5?"#f39c12":"#e74c3c";
+    bar.appendChild(E("div",{c:"badge",id:"tmr",s:{background:tc+"22",color:tc,fontSize:"22px"}},["⏰ "+tl+"s"]));
+    bar.appendChild(E("div",{c:"badge",id:"scd",s:{background:"rgba(255,215,0,.15)",color:"#FFD700"}},["💰 "+sc]));
+    if(st>=2)bar.appendChild(E("div",{c:"badge",s:{background:"rgba(255,100,50,.2)",color:"#ff6432",fontSize:"16px"}},["🔥 x"+st]));
+    w.appendChild(bar);
+    var track=E("div",{c:"tb"});track.appendChild(E("div",{c:"tf",id:"tfl",s:{background:tc,width:(tl/45*100)+"%"}}));
+    w.appendChild(track);
+    w.appendChild(E("div",{s:{textAlign:"center",marginBottom:"16px",fontSize:"14px",color:"#8ecfaa",fontWeight:"600"}},["⚡ Scritta bene o male? Decidi in fretta!"]));
+    var cd=E("div",{c:"card",id:"wcd",s:{marginBottom:"12px",padding:"36px 20px",position:"relative",transition:"border-color .2s"}});
+    cd.appendChild(E("div",{c:"b",id:"wd",s:{fontSize:"44px",letterSpacing:"4px",animation:"pi .2s ease-out"}},[qs[cur].disp.toUpperCase()]));
+    w.appendChild(cd);
+    // Error feedback area placeholder
+    w.appendChild(E("div",{id:"efb",s:{minHeight:"16px"}}));
+    var row=E("div",{c:"row"});
+    row.appendChild(E("button",{s:{flex:"1 1 120px",maxWidth:"180px",padding:"18px 16px",fontSize:"20px",fontFamily:"'Bangers',cursive",background:"linear-gradient(135deg,#1a3a1a,#1a5c2a)",color:"#2ecc40",border:"3px solid rgba(46,204,64,.4)",borderRadius:"16px"},onclick:function(){doAns(true)}},["✅ Giusta!"]));
+    row.appendChild(E("button",{s:{flex:"1 1 120px",maxWidth:"180px",padding:"18px 16px",fontSize:"20px",fontFamily:"'Bangers',cursive",background:"linear-gradient(135deg,#3a1a1a,#5c1a1a)",color:"#e74c3c",border:"3px solid rgba(231,76,60,.4)",borderRadius:"16px"},onclick:function(){doAns(false)}},["❌ Sbagliata!"]));
+    w.appendChild(row);c.appendChild(w);
+  }
+
+  function doAns(yes){
+    if(over||cur>=qs.length||blocked)return;
+    var q=qs[cur],ok=yes===q.ok;
+    ans++;
+    if(ok){
+      var bo=st>=2?3:0;sc+=8+bo;st++;if(st>bs)bs=st;
+      var cd=$("wcd");
+      if(cd){cd.style.borderColor="rgba(46,204,64,.6)";setTimeout(function(){if(cd)cd.style.borderColor=""},300)}
+      var sd=$("scd");if(sd)sd.textContent="💰 "+sc;
+      if(cur+1>=qs.length){end();return}
+      cur++;
+      setTimeout(function(){if(!over)nextWord()},150);
+    } else {
+      st=0;
+      errs.push({given:q.disp,correct:q.correct,hint:q.hint});
+      // BIG error overlay
+      var ov=E("div",{c:"bx"});ov.appendChild(E("div",{c:"bx-i"},["❌"]));
+      document.body.appendChild(ov);
+      setTimeout(function(){if(ov.parentNode)ov.parentNode.removeChild(ov)},900);
+      // Shake card + red border
+      var wcd=$("wcd");
+      if(wcd){wcd.style.borderColor="rgba(231,76,60,.7)";wcd.style.animation="shake .4s ease-out";setTimeout(function(){if(wcd){wcd.style.animation="none";wcd.style.borderColor=""}},500)}
+      // Error detail bar
+      var efb=$("efb");
+      if(efb){
+        efb.innerHTML="";
+        var bar=E("div",{c:"re"});
+        bar.appendChild(E("div",{c:"b",s:{fontSize:"16px",color:"#e74c3c",marginBottom:"6px"}},["SBAGLIATO!"]));
+        var inner=E("div",{s:{display:"flex",justifyContent:"center",alignItems:"center",gap:"12px"}});
+        inner.appendChild(E("span",{c:"ew",s:{fontSize:"18px"}},[q.disp.toUpperCase()]));
+        inner.appendChild(E("span",{s:{color:"#888",fontSize:"16px"}},["➜"]));
+        inner.appendChild(E("span",{c:"ek",s:{fontSize:"22px"}},[q.correct.toUpperCase()]));
+        bar.appendChild(inner);efb.appendChild(bar);
+      }
+      blocked=true;
+      if(errTO)clearTimeout(errTO);
+      errTO=setTimeout(function(){
+        blocked=false;
+        var efb2=$("efb");if(efb2)efb2.innerHTML="";
+        if(cur+1>=qs.length){end();return}
+        cur++;
+        if(!over)nextWord();
+      },1200);
+    }
+  }
+
+  function nextWord(){
+    var wd=$("wd");
+    if(wd&&cur<qs.length){wd.style.animation="none";wd.offsetHeight;wd.style.animation="pi .2s ease-out";wd.textContent=qs[cur].disp.toUpperCase()}
+    var sd=$("scd");if(sd)sd.textContent="💰 "+sc;
+  }
+
+  tmr=setInterval(function(){
+    tl--;if(tl<=0){tl=0;end()}
+    var tc=tl>15?"#2ecc40":tl>5?"#f39c12":"#e74c3c";
+    var t=$("tmr");if(t){t.textContent="⏰ "+tl+"s";t.style.color=tc;t.style.background=tc+"22"}
+    var f=$("tfl");if(f){f.style.width=(tl/45*100)+"%";f.style.background=tc}
+  },1000);
+  render();
+}
+
+menu();
+})();
+</script>
+</body>
+</html>
